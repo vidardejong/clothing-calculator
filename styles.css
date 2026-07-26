@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@100..900&family=Lexend:wght@100..900&family=Tiny5&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+*{
+    font-family: "Ubuntu", sans-serif;
+    margin: 0;
+    color: white;
+}
+
+body{
+    background-image: url(img/day.png); 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    min-height: 100dvh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+header{
+    flex-shrink: 0;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+.grid-container{
+    flex: 1;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(12, 1fr);
+    max-width: 1065px;
+    margin: 0 auto;
+    column-gap: 15px;
+}
+.box{
+    border: 2px solid hsla(224, 100%, 15%, 0.25);
+    border-radius: 20px;
+    padding: 40px 30px;
+    backdrop-filter: blur(5px);
+}
+h1{
+    font-size: 30px;
+    font-weight: bold;
+}
+button{
+    border: none;
+    background-color: hsla(207, 100%, 60%, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    color: white;
+}
+button:hover{
+    background-color: hsla(207, 100%, 60%, 1);
+}
+button.active{
+    border: 1px solid hsla(224, 100%, 15%, 0.25);
+    background-color: hsla(207, 100%, 60%, 1);
+}
+.input{
+    height: 400px;
+    grid-column: 1 / span 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.input p{
+    font-size: 16px;
+    font-weight: bold;
+}
+.input .activity-buttons{
+    margin-top: 10px; 
+}
+.input .activity-buttons button{
+    margin: 0 5px;
+    height: 70px;
+    width: 70px;
+    border-radius: 10px;
+}
+.input .activity-buttons button i{
+    position: relative;
+    top: 4px;
+    font-size: 40px;
+    color: hsla(0, 0%, 100%, 0.5);
+}
+.input label{
+    margin-top: 50px;
+    color: white;
+    font-weight: bold;
+}
+.input span{
+    margin-top: 10px;
+    font-size: 12px;
+}
+.slider{
+    margin-top: 5px;
+    width: 200px;
+    cursor: pointer;
+}
+.input .location-selection{
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.input .location-selection input{
+    margin: 0;
+    width: 170px;
+    border: 0.5px solid white;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    background-color: hsla(207, 100%, 60%, 0.5);
+}
+.input .location-selection input::placeholder{
+    color: hsla(0, 0%, 100%, 0.8);
+}
+.input .location-selection button{
+    border: 0.5px solid white;
+    width: 36px;
+    height: 36px;
+    border-radius: 5px;
+}
+.input .location-selection button i{
+    position: relative;
+    top: 2px;
+    font-size: 20px;
+    color: hsla(0, 0%, 100%, 0.8);
+}
+.calcBtn{
+    margin-top: 50px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 20px;
+    border: 1px solid hsla(224, 100%, 15%, 0.25);
+    background-color: white;
+    color: hsl(207, 100%, 60%);
+}
+.calcBtn:hover{
+    background-color: hsl(0, 0%, 85%);
+}
+.calcBtn:active{
+    background-color: hsl(0, 0%, 70%);
+}
+
+/*----------------------------------------------------------*/
+
+.clothing-display{
+    height: 500px;
+    grid-column: 5 / span 4;
+}
+.clothing-description{
+    height: 400px;
+    grid-column: 9 / span 4;
+}
+.weather{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.city{
+    font-size: 15px;
+    font-weight: bold;
+}
+

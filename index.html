@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+</head>
+<body>
+    <header>
+        <h1>Clothing Calculator</h1>
+    </header>
+    <div class="grid-container">
+        <div class="input box">
+            <p>Activity Level</p>
+            <div class="activity-buttons">
+                <button id="walkBtn" onclick="setActivity('low')"><i class="fi fi-br-walking"></i></button>
+                <button id="jogBtn" onclick="setActivity('medium')"><i class="fi fi-br-running"></i></button>
+                <button id="runBtn" onclick="setActivity('high')"><i class="fi fi-br-user-fast-running"></i></button>
+            </div>
+            <label for="sensitivity">Temperature Sensitivity</label>
+            <span id="value-display">Average</span>
+            <input 
+                type="range" 
+                id="temp-sensitivity" 
+                name="temp-sensitivity" 
+                min="1" 
+                max="5" 
+                value="3" 
+                step="1" 
+                class="slider"
+            >
+            <div class="location-selection">
+                <input type="text" class="location" placeholder="Search for a location...">
+                <button><i class="fi fi-rr-marker"></i></button>
+            </div>
+            <button onclick="calculateClothing()" class="calcBtn">Calculate</button>
+        </div>
+        <div class="clothing-display box">
+
+        </div>
+        <div class="clothing-description box">
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat libero magnam similique voluptas commodi delectus veniam assumenda qui suscipit veritatis cumque accusantium atque, doloribus, in eaque! Fuga natus consequuntur repellat?
+            </p>
+            <br>
+            <hr>
+            <br>
+            <div class="weather">
+                <p class="city">Stockholm</p>
+                <p class="temperature">22*</p>
+                <p class="wind">4 m/s</p>
+                <p class="humidity">30%</p>
+                <p class="weatherEmoji"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
