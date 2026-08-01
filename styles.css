@@ -24,7 +24,7 @@ header{
     justify-content: center;
     align-items: end;
 }
-.grid-container{
+.gridContainer{
     flex: 1;
     display: grid;
     align-items: center;
@@ -58,53 +58,106 @@ button.active{
     border: 1px solid hsla(224, 100%, 15%, 0.25);
     background-color: hsla(207, 100%, 60%, 1);
 }
-.input{
+.inputCard{
     height: 400px;
-    grid-column: 1 / span 4;
+    grid-column: 5 / span 4;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: grid-column 0.4s ease;
 }
-.input p{
+.inputCard p{
     font-size: 16px;
     font-weight: bold;
 }
-.input .activity-buttons{
+.inputCard .activityBtns{
     margin-top: 10px; 
 }
-.input .activity-buttons button{
+.inputCard .activityBtns button{
     margin: 0 5px;
     height: 70px;
     width: 70px;
     border-radius: 10px;
 }
-.input .activity-buttons button i{
+.inputCard .activityBtns button i{
     position: relative;
     top: 4px;
     font-size: 40px;
     color: hsla(0, 0%, 100%, 0.5);
 }
-.input label{
+.inputCard label{
     margin-top: 50px;
     color: white;
     font-weight: bold;
 }
-.input span{
+.inputCard span{
     margin-top: 10px;
     font-size: 12px;
 }
-.slider{
-    margin-top: 5px;
-    width: 200px;
+
+input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    margin-top: 10px;
+    width: 225px;
     cursor: pointer;
 }
-.input .location-selection{
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    background-color: hsl(207, 100%, 60%);
+    border-radius: 10px;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    margin-top: -7px;
+}
+input[type="range"]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4), 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    background-color: hsl(207, 100%, 60%);
+    border-radius: 10px;
+}
+input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover,
+input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  background-color: #f1f5f9;
+}
+input[type="range"].custom-slider:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4), 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.inputCard .locationSelection{
     margin-top: 50px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
 }
-.input .location-selection input{
+.inputCard .locationSelection input{
     margin: 0;
     width: 170px;
     border: 0.5px solid white;
@@ -113,20 +166,25 @@ button.active{
     color: white;
     background-color: hsla(207, 100%, 60%, 0.5);
 }
-.input .location-selection input::placeholder{
+.inputCard .locationSelection input::placeholder{
     color: hsla(0, 0%, 100%, 0.8);
 }
-.input .location-selection button{
+.inputCard .locationSelection button{
     border: 0.5px solid white;
-    width: 36px;
-    height: 36px;
+    width: 36.5px;
+    height: 36.5px;
     border-radius: 5px;
 }
-.input .location-selection button i{
+.inputCard .locationSelection button i{
     position: relative;
     top: 2px;
     font-size: 20px;
     color: hsla(0, 0%, 100%, 0.8);
+}
+.errorDisplay{
+    font-size: 0.75rem;
+    position: absolute;
+    top: 350px;
 }
 .calcBtn{
     margin-top: 50px;
@@ -146,21 +204,48 @@ button.active{
 
 /*----------------------------------------------------------*/
 
-.clothing-display{
+.clothingCard{
+    display: none;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(12, 1fr);
     height: 500px;
     grid-column: 5 / span 4;
 }
-.clothing-description{
+.descCard{
+    display: none;
     height: 400px;
     grid-column: 9 / span 4;
 }
-.weather{
-    display: flex;
+.recommendedClothes{
+    font-size: 14px;
+}
+.weatherDisplay{
+    display: none;
     flex-direction: column;
     align-items: center;
 }
-.city{
-    font-size: 15px;
+.cityDisplay{
+    font-size: 25px;
     font-weight: bold;
+}
+.tempDisplay{
+    margin-top: 5px;
+    font-size: 40px;
+}
+.windDisplay{
+    margin-top: 10px;
+    font-size: 15px;
+}
+.humidityDisplay{
+    margin-top: 10px;
+    font-size: 15px;
+}
+.weatherDescDisplay{
+    margin-top: 10px;
+    font-size: 15px;
+}
+.weatherEmoji{
+    margin-top: 10px;
+    font-size: 50px;
 }
 

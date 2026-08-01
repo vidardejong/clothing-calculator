@@ -12,49 +12,45 @@
     <header>
         <h1>Clothing Calculator</h1>
     </header>
-    <div class="grid-container">
-        <div class="input box">
+    <div class="gridContainer">
+        <div class="inputCard box">
             <p>Activity Level</p>
-            <div class="activity-buttons">
+            <div class="activityBtns">
                 <button id="walkBtn" onclick="setActivity('low')"><i class="fi fi-br-walking"></i></button>
                 <button id="jogBtn" onclick="setActivity('medium')"><i class="fi fi-br-running"></i></button>
                 <button id="runBtn" onclick="setActivity('high')"><i class="fi fi-br-user-fast-running"></i></button>
             </div>
-            <label for="sensitivity">Temperature Sensitivity</label>
-            <span id="value-display">Average</span>
+            <label for="tempSensitivity">Temperature Sensitivity</label>
+            <span id="sliderValueDisplay">Average</span>
             <input 
                 type="range" 
-                id="temp-sensitivity" 
-                name="temp-sensitivity" 
+                id="tempSensitivity" 
+                name="tempSensitivity" 
                 min="1" 
                 max="5" 
                 value="3" 
                 step="1" 
                 class="slider"
+                oninput="updateSlider(this)"
             >
-            <div class="location-selection">
-                <input type="text" class="location" placeholder="Search for a location...">
+            <div class="locationSelection">
+                <input type="text" class="cityInput" placeholder="Search for a city...">
                 <button><i class="fi fi-rr-marker"></i></button>
             </div>
+            <p class="errorDisplay"></p>
             <button onclick="calculateClothing()" class="calcBtn">Calculate</button>
         </div>
-        <div class="clothing-display box">
 
+        <div class="clothingCard box">
+            
         </div>
-        <div class="clothing-description box">
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat libero magnam similique voluptas commodi delectus veniam assumenda qui suscipit veritatis cumque accusantium atque, doloribus, in eaque! Fuga natus consequuntur repellat?
-            </p>
+
+        <div class="descCard box">
+            <div class="descDisplay"></div>
             <br>
             <hr>
             <br>
-            <div class="weather">
-                <p class="city">Stockholm</p>
-                <p class="temperature">22*</p>
-                <p class="wind">4 m/s</p>
-                <p class="humidity">30%</p>
-                <p class="weatherEmoji"></p>
-            </div>
+            <div class="weatherDisplay"></div>
         </div>
     </div>
 
