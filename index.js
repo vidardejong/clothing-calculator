@@ -15,7 +15,7 @@ const errorDisplay = document.querySelector(".errorDisplay");
 const weatherDisplay = document.querySelector(".weatherDisplay");
 const descDisplay = document.querySelector(".descDisplay");
 
-function setActivity(level){
+function setActivity(level) {
     [walkBtn, jogBtn, runBtn].forEach(btn => btn.classList.remove("active"));
 
     if (level === "low") walkBtn.classList.add("active");
@@ -23,12 +23,12 @@ function setActivity(level){
     if (level === "high") runBtn.classList.add("active");
 }
 
-function updateSlider(slider){
+function updateSlider(slider) {
     const textValues = ["Very easily cold", "Easily cold", "Average", "Easily warm", "Very easily warm"];
     sliderValueDisplay.textContent = textValues[slider.value - 1];
 }
 
-async function getWeatherData(city){
+async function getWeatherData(city) {
     const apiKey = "06167aac9d119ffa7c6c3c0181130655";
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
 
@@ -46,7 +46,7 @@ async function getWeatherData(city){
     }
 }
 
-function displayWeatherInfo(city, temp, humidity, speed, description, id){
+function displayWeatherInfo(city, temp, humidity, speed, description, id) {
     weatherDisplay.textContent = "";
     weatherDisplay.style.display = "flex";
 
@@ -80,7 +80,7 @@ function displayWeatherInfo(city, temp, humidity, speed, description, id){
     weatherDisplay.appendChild(weatherEmoji);
 }
 
-function getWeatherEmoji(weatherId){
+function getWeatherEmoji(weatherId) {
     switch(true){
         case (weatherId >= 200 && weatherId < 300):
             return "⛈️";
@@ -102,11 +102,11 @@ function getWeatherEmoji(weatherId){
     }
 }
 
-function displayError(message){
+function displayError(message) {
     errorDisplay.textContent = message;
 }
 
-function getMetabolicRate(){
+function getMetabolicRate() {
     const buttons = [walkBtn, jogBtn, runBtn];
 
     const activeBtn = buttons.find(btn => btn.classList.contains("active"));
@@ -128,7 +128,7 @@ function getMetabolicRate(){
     } 
 }
 
-function getTempSensitivity(tempSensitivityString){
+function getTempSensitivity(tempSensitivityString) {
     switch(tempSensitivityString){
         case "Very easily cold": 
             return 0.3;
@@ -183,21 +183,43 @@ function generateOutfit(feelsLike, clo, weatherId, cloudCover, isDay) {
     return { tops, bottom, accessories };
 }
 
-function displayClothes(tops, bottom, accessories){
+function displayClothes(tops, bottom, accessories) {
 
     tops = tops.map(top => top.replaceAll("_", " "));
     bottom = bottom.replaceAll("_", " ");
     accessories = accessories.map(accessory => accessory.replaceAll("_", " "));
 
-    const recommendedClothes = document.createElement("p");
-    recommendedClothes.textContent = `Recommended clothes: ${tops}, ${bottom}, ${accessories}`;
-    recommendedClothes.classList.add("recommendedClothes");
-    descDisplay.appendChild(recommendedClothes);
+    let recommendedClothes = (!accessories.length) ? `Recommended clothes: ${tops}, ${bottom}` : `Recommended clothes: ${tops}, ${bottom}, ${accessories}`;
+    
+    descDisplay.textContent += recommendedClothes;
+}
+
+function success(pos) {
+    const lat = pos.coords.latitude;
+    const lng = pos.coords.longitude;
+
+    const markup = `
+    https://www.openstreetmap.org/#map=5/62.99/17.64
+    `
+}
+
+function error() {
 
 }
 
-async function calculateClothing(){
+const options = {};
+
+function getGeolocation() {
+    if(!navigator.geolocation) {
+        displayError("No geolocation available");
+    }
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+}
+
+async function calculateClothing() {
     errorDisplay.textContent = "";
+    descDisplay.textContent = "";
 
     let metabolicRate = getMetabolicRate();
     if(!metabolicRate) return;

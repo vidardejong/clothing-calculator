@@ -216,7 +216,7 @@ input[type="range"].custom-slider:focus::-moz-range-thumb {
     height: 400px;
     grid-column: 9 / span 4;
 }
-.recommendedClothes{
+.descDisplay{
     font-size: 14px;
 }
 .weatherDisplay{
