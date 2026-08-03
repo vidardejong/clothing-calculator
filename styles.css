@@ -204,25 +204,33 @@ input[type="range"].custom-slider:focus::-moz-range-thumb {
 
 /*----------------------------------------------------------*/
 
-.clothingCard{
+.clothesCard{
     display: none;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(12, 1fr);
     height: 500px;
     grid-column: 5 / span 4;
+    justify-content: center;
+    align-items: center;
+}
+.clothesDisplay{
+    width: 100%;
+    height: 100%;
 }
 .descCard{
     display: none;
+    flex-direction: column;
+    align-items: center;
     height: 400px;
     grid-column: 9 / span 4;
 }
-.descDisplay{
-    font-size: 14px;
+.recommendedClothesHeader{
+    font-size: 16px;
 }
-.weatherDisplay{
-    display: none;
-    flex-direction: column;
-    align-items: center;
+.clothes{
+    color: transparent;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-size: 12px;
+    background-color: white;
 }
 .cityDisplay{
     font-size: 25px;

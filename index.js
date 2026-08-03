@@ -1,7 +1,7 @@
 const gridContainer = document.querySelector(".gridContainer");
 
 const inputCard = document.querySelector(".inputCard");
-const clothingCard = document.querySelector(".clothingCard");
+const clothesCard = document.querySelector(".clothesCard");
 const descCard = document.querySelector(".descCard");
 
 const walkBtn = document.getElementById("walkBtn");
@@ -12,8 +12,6 @@ const sliderValueDisplay = document.getElementById("sliderValueDisplay");
 const locationSelection = document.querySelector(".locationSelection");
 const cityInput = document.querySelector(".cityInput");
 const errorDisplay = document.querySelector(".errorDisplay");
-const weatherDisplay = document.querySelector(".weatherDisplay");
-const descDisplay = document.querySelector(".descDisplay");
 
 const apiKey = "06167aac9d119ffa7c6c3c0181130655";
 
@@ -48,8 +46,6 @@ async function getWeatherData(city) {
 }
 
 function displayWeatherInfo(city, temp, humidity, speed, description, id) {
-    weatherDisplay.textContent = "";
-    weatherDisplay.style.display = "flex";
 
     const cityDisplay = document.createElement("p");
     const tempDisplay = document.createElement("p");
@@ -73,12 +69,12 @@ function displayWeatherInfo(city, temp, humidity, speed, description, id) {
     weatherEmoji.classList.add("weatherEmoji");
 
 
-    weatherDisplay.appendChild(cityDisplay);
-    weatherDisplay.appendChild(tempDisplay);
-    weatherDisplay.appendChild(windDisplay);
-    weatherDisplay.appendChild(humidityDisplay);
-    weatherDisplay.appendChild(weatherDescDisplay);
-    weatherDisplay.appendChild(weatherEmoji);
+    descCard.appendChild(cityDisplay);
+    descCard.appendChild(tempDisplay);
+    descCard.appendChild(windDisplay);
+    descCard.appendChild(humidityDisplay);
+    descCard.appendChild(weatherDescDisplay);
+    descCard.appendChild(weatherEmoji);
 }
 
 function getWeatherEmoji(weatherId) {
@@ -184,15 +180,38 @@ function generateOutfit(feelsLike, clo, weatherId, cloudCover, isDay) {
     return { tops, bottom, accessories };
 }
 
+function addClothingImage(itemName) {
+    const img = document.createElement("img");
+    img.src = `img/${itemName}.png`;
+    img.alt = itemName;
+    img.classList.add("clothes-item");
+    clothesCard.appendChild(img);
+}
+
 function displayClothes(tops, bottom, accessories) {
+
+    clothesCard.innerHTML = "";
+
+    tops.forEach(topItem => {
+        addClothingImage(topItem);
+    });
+
+    if (bottom) {
+        addClothingImage(bottom);
+    }
+
+    accessories.forEach(accessoryItem => {
+        addClothingImage(accessoryItem);
+    });
+
 
     tops = tops.map(top => top.replaceAll("_", " "));
     bottom = bottom.replaceAll("_", " ");
     accessories = accessories.map(accessory => accessory.replaceAll("_", " "));
 
-    let recommendedClothes = (!accessories.length) ? `Recommended clothes: ${tops}, ${bottom}` : `Recommended clothes: ${tops}, ${bottom}, ${accessories}`;
     
-    descDisplay.textContent += recommendedClothes;
+
+    descCard.appendChild(document.createElement("hr"));
 }
 
 async function getCityFromGeolocation(lat, lon) {
@@ -249,7 +268,6 @@ function getGeolocation() {
 
 async function calculateClothing() {
     errorDisplay.textContent = "";
-    descDisplay.textContent = "";
 
     let metabolicRate = getMetabolicRate();
     if(!metabolicRate) return;
@@ -278,8 +296,8 @@ async function calculateClothing() {
         const {tops, bottom, accessories} = generateOutfit(feels_likeCelsius, clo, id, all, isDay);
 
         inputCard.style.gridColumn = "1 / span 4";
-        clothingCard.style.display = "grid";
-        descCard.style.display = "block";
+        clothesCard.style.display = "flex";
+        descCard.style.display = "flex";
 
         displayClothes(tops, bottom, accessories);
         displayWeatherInfo(city, tempCelsius, humidity, speed, description, id);
