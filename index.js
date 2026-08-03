@@ -15,6 +15,8 @@ const errorDisplay = document.querySelector(".errorDisplay");
 const weatherDisplay = document.querySelector(".weatherDisplay");
 const descDisplay = document.querySelector(".descDisplay");
 
+const apiKey = "06167aac9d119ffa7c6c3c0181130655";
+
 function setActivity(level) {
     [walkBtn, jogBtn, runBtn].forEach(btn => btn.classList.remove("active"));
 
@@ -29,7 +31,6 @@ function updateSlider(slider) {
 }
 
 async function getWeatherData(city) {
-    const apiKey = "06167aac9d119ffa7c6c3c0181130655";
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
 
     try{
@@ -194,20 +195,49 @@ function displayClothes(tops, bottom, accessories) {
     descDisplay.textContent += recommendedClothes;
 }
 
-function success(pos) {
-    const lat = pos.coords.latitude;
-    const lng = pos.coords.longitude;
+async function getCityFromGeolocation(lat, lon) {
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`
 
-    const markup = `
-    https://www.openstreetmap.org/#map=5/62.99/17.64
-    `
+    try{
+        const response = await fetch(apiUrl);
+        if(!response.ok){
+            throw new Error(`error: ${response.status}`);
+        }
+        const weatherData = await response.json();
+        const { name: city } = weatherData;
+        return city;
+    }
+    catch(error){
+        displayError(error)
+        return null;
+    }
+}
+
+async function success(pos) {
+    const lat = pos.coords.latitude;
+    const lon = pos.coords.longitude;
+
+    const city = await getCityFromGeolocation(lat, lon);
+
+    if (city) {
+        cityInput.value = city;
+    }
 }
 
 function error() {
-
+    if (error.code === 1) {
+        displayError("Please allow access to geolocation");
+    }
+    else {
+        displayError("Position unavailabe");
+    }
 }
 
-const options = {};
+const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+};
 
 function getGeolocation() {
     if(!navigator.geolocation) {
