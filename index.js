@@ -32,7 +32,7 @@ function updateSlider(slider) {
 }
 
 async function getWeatherData(city) {
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}`;
 
     try{
         const response = await fetch(apiUrl);
@@ -43,7 +43,7 @@ async function getWeatherData(city) {
         return weatherData;
     }
     catch(error){
-        displayError(error)
+        displayError(error.message || error);
         return null;
     }
 }
@@ -188,6 +188,9 @@ function displayClothes(cloScore, isRaining) {
                 clothes = ["Thermal Base Layer", "Hoodie", "Heavy Parka", "Insulated Pants", "Winter Boots", "Beanie", "Gloves", "Scarf"];
                 break;
             }
+            default: {
+                clothes = ["T-shirt", "Pants", "Sneakers"];
+            }
         }
     } 
     else {
@@ -224,6 +227,9 @@ function displayClothes(cloScore, isRaining) {
                 clothes = ["Thermal Base Layer", "Hoodie", "Waterproof Parka", "Insulated Pants", "Winter Boots", "Beanie", "Gloves", "Scarf"];
                 break;
             }
+            default: {
+                clothes = ["T-shirt", "Pants", "Sneakers", "Umbrella"];
+            }
         }
     }
 
@@ -253,7 +259,7 @@ async function getCityFromGeolocation(lat, lon) {
         return city;
     }
     catch(error){
-        displayError(error)
+        displayError(error.message || error);
         return null;
     }
 }
@@ -269,12 +275,12 @@ async function success(pos) {
     }
 }
 
-function error() {
-    if (error.code === 1) {
+function error(err) {
+    if (err?.code === 1) {
         displayError("Please allow access to geolocation");
     }
     else {
-        displayError("Position unavailabe");
+        displayError("Position unavailable");
     }
 }
 
@@ -287,6 +293,7 @@ const options = {
 function getGeolocation() {
     if(!navigator.geolocation) {
         displayError("No geolocation available");
+        return;
     }
 
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -296,7 +303,7 @@ async function calculateClothing() {
     errorDisplay.textContent = "";
 
     const metabolicRate = getMetabolicRate();
-    if(!metabolicRate) return;
+    if(metabolicRate === null) return;
 
     const tempSensitivity = getTempSensitivity(sliderValueDisplay.textContent);
     const now = new Date();
@@ -309,15 +316,17 @@ async function calculateClothing() {
     
     try{
         const weatherData = await getWeatherData(cityInput.value);
+        if (!weatherData) return;
+
         const { name: city,
                 main: {temp, feels_like, humidity},
                 wind: {speed},
-                clouds: {all},
-                weather: {id, main, description}} = weatherData;
+                weather: [weatherCondition]} = weatherData;
+        const { id, main, description } = weatherCondition || {};
 
         const tempCelsius = temp - 273.15;
         const feels_likeCelsius = feels_like - 273.15;
-        const isRaining = (main == "Thunderstorm" || main == "Drizzle" || main == "Rain") ? true : false;
+        const isRaining = (main === "Thunderstorm" || main === "Drizzle" || main === "Rain") ? true : false;
         
         const bci = 1 + (20 - feels_likeCelsius) / 20; // base clothing insulation
         const cloValue = bci + metabolicRate + tempSensitivity;
@@ -332,7 +341,7 @@ async function calculateClothing() {
     }
     catch(error){
         console.error(error);
-        displayError(error);
+        displayError(error.message || error);
     }
 
     
