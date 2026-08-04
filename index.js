@@ -13,6 +13,8 @@ const locationSelection = document.querySelector(".locationSelection");
 const cityInput = document.querySelector(".cityInput");
 const errorDisplay = document.querySelector(".errorDisplay");
 
+const clothesContainer = document.querySelector(".clothesContainer");
+
 const apiKey = "06167aac9d119ffa7c6c3c0181130655";
 
 function setActivity(level) {
@@ -204,10 +206,16 @@ function displayClothes(tops, bottom, accessories) {
         addClothingImage(accessoryItem);
     });
 
+    const clothesArray = tops.push(bottom).concat(accessories);
 
-    tops = tops.map(top => top.replaceAll("_", " "));
-    bottom = bottom.replaceAll("_", " ");
-    accessories = accessories.map(accessory => accessory.replaceAll("_", " "));
+    const clothesArray = [...tops, bottom, ...accessories];
+
+    clothesArray.forEach(item => {
+        const child = document.createElement("p");
+        child.classList.add("clothes");
+        child.textContent = item.replaceAll("_", " ");
+        clothesContainer.appendChild(child);
+    });
 
     
 
