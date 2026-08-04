@@ -4,8 +4,8 @@ const inputCard = document.querySelector(".inputCard");
 const clothesCard = document.querySelector(".clothesCard");
 const descCard = document.querySelector(".descCard");
 
+const restBtn = document.getElementById("restBtn");
 const walkBtn = document.getElementById("walkBtn");
-const jogBtn = document.getElementById("jogBtn");
 const runBtn = document.getElementById("runBtn");
 
 const sliderValueDisplay = document.getElementById("sliderValueDisplay");
@@ -14,14 +14,15 @@ const cityInput = document.querySelector(".cityInput");
 const errorDisplay = document.querySelector(".errorDisplay");
 
 const clothesContainer = document.querySelector(".clothesContainer");
+const weatherInfo = document.querySelector(".weatherInfo");
 
 const apiKey = "06167aac9d119ffa7c6c3c0181130655";
 
 function setActivity(level) {
-    [walkBtn, jogBtn, runBtn].forEach(btn => btn.classList.remove("active"));
+    [restBtn, walkBtn, runBtn].forEach(btn => btn.classList.remove("active"));
 
-    if (level === "low") walkBtn.classList.add("active");
-    if (level === "medium") jogBtn.classList.add("active");
+    if (level === "low") restBtn.classList.add("active");
+    if (level === "medium") walkBtn.classList.add("active");
     if (level === "high") runBtn.classList.add("active");
 }
 
@@ -49,6 +50,8 @@ async function getWeatherData(city) {
 
 function displayWeatherInfo(city, temp, humidity, speed, description, id) {
 
+    weatherInfo.innerHTML = "";
+
     const cityDisplay = document.createElement("p");
     const tempDisplay = document.createElement("p");
     const windDisplay = document.createElement("p");
@@ -58,7 +61,7 @@ function displayWeatherInfo(city, temp, humidity, speed, description, id) {
 
     cityDisplay.textContent = city;
     tempDisplay.textContent = `${(temp).toFixed(1)}°C`;
-    windDisplay.textContent = `${(speed).toFixed(1)} m/s`;
+    windDisplay.textContent = `Wind: ${(speed).toFixed(1)} m/s`;
     humidityDisplay.textContent = `Humidity: ${humidity}%`;
     weatherDescDisplay.textContent = description;
     weatherEmoji.textContent = getWeatherEmoji(id);
@@ -71,12 +74,12 @@ function displayWeatherInfo(city, temp, humidity, speed, description, id) {
     weatherEmoji.classList.add("weatherEmoji");
 
 
-    descCard.appendChild(cityDisplay);
-    descCard.appendChild(tempDisplay);
-    descCard.appendChild(windDisplay);
-    descCard.appendChild(humidityDisplay);
-    descCard.appendChild(weatherDescDisplay);
-    descCard.appendChild(weatherEmoji);
+    weatherInfo.appendChild(cityDisplay);
+    weatherInfo.appendChild(tempDisplay);
+    weatherInfo.appendChild(windDisplay);
+    weatherInfo.appendChild(humidityDisplay);
+    weatherInfo.appendChild(weatherDescDisplay);
+    weatherInfo.appendChild(weatherEmoji);
 }
 
 function getWeatherEmoji(weatherId) {
@@ -106,7 +109,7 @@ function displayError(message) {
 }
 
 function getMetabolicRate() {
-    const buttons = [walkBtn, jogBtn, runBtn];
+    const buttons = [restBtn, walkBtn, runBtn];
 
     const activeBtn = buttons.find(btn => btn.classList.contains("active"));
 
@@ -116,12 +119,12 @@ function getMetabolicRate() {
     }
 
     switch (activeBtn) {
+        case restBtn: 
+            return 0.35;
         case walkBtn: 
-            return 1;
-        case jogBtn: 
-            return 0.6;
+            return 0;
         case runBtn: 
-            return 0.3;
+            return -0.8;
         default:
             return null;
     } 
@@ -130,96 +133,111 @@ function getMetabolicRate() {
 function getTempSensitivity(tempSensitivityString) {
     switch(tempSensitivityString){
         case "Very easily cold": 
-            return 0.3;
+            return 0.5;
         case "Easily cold": 
-            return 0.15;
+            return 0.25;
         case "Average": 
             return 0;
         case "Easily warm": 
-            return -0.15;
+            return -0.25;
         case "Very easily warm": 
-            return -0.3;
+            return -0.5;
         default: 
             return null;
     }
 }
 
-function generateOutfit(feelsLike, clo, weatherId, cloudCover, isDay) {
-    let tops = [];
-    let bottom = "";
-    let accessories = [];
-
+function displayClothes(cloScore, isRaining) {
     
-    if (clo < 0.3) {
-        tops.push("t-shirt");
-        bottom = "shorts";
-    } else if (clo < 0.6) {
-        tops.push("longsleeve");
-        bottom = "light_pants";
-    } else if (clo < 0.9) {
-        tops.push("t-shirt", "hoodie");
-        bottom = "pants";
-    } else if (clo < 1.3) {
-        tops.push("base_layer", "autumn_jacket");
-        bottom = "pants";
-    } else {
-        tops.push("base_layer", "fleece", "winter_jacket");
-        bottom = "pants_with_thermals";
-    }
-
-    const isRaining = weatherId >= 200 && weatherId < 600;
-    if (isRaining) {
-        tops[tops.length - 1] = "rain_jacket"; 
-        accessories.push("umbrella");
-    }
-
-    if (cloudCover < 30 && isDay) {
-        accessories.push("sunglasses");
-    }
-    if (feelsLike < 8) accessories.push("beanie");
-    if (feelsLike < 5) accessories.push("gloves");
-    
-    return { tops, bottom, accessories };
-}
-
-function addClothingImage(itemName) {
-    const img = document.createElement("img");
-    img.src = `img/${itemName}.png`;
-    img.alt = itemName;
-    img.classList.add("clothes-item");
-    clothesCard.appendChild(img);
-}
-
-function displayClothes(tops, bottom, accessories) {
-
     clothesCard.innerHTML = "";
+    clothesContainer.innerHTML = "";
 
-    tops.forEach(topItem => {
-        addClothingImage(topItem);
-    });
+    let clothes;
 
-    if (bottom) {
-        addClothingImage(bottom);
+    if (!isRaining) {
+        switch (cloScore) {
+            case 0: {
+                clothes = ["T-shirt", "Shorts", "Sneakers"];
+                break;
+            }
+            case 1: {
+                clothes = ["T-shirt", "Pants", "Sneakers"];
+                break;
+            }
+            case 2: {
+                clothes = ["Long Sleeve",  "Pants", "Sneakers"];
+                break;
+            }
+            case 3: {
+                clothes = ["T-shirt", "Hoodie", "Pants", "Sneakers"];
+                break;
+            }
+            case 4: {
+                clothes = ["T-shirt", "Hoodie", "Light Jacket", "Pants", "Sneakers"];
+                break;
+            }
+            case 5: {
+                clothes = ["T-shirt", "Hoodie", "Insulated Jacket" , "Pants", "Boots", "Beanie"];
+                break;
+            }
+            case 6: {
+                clothes = ["Thermal Base Layer", "Hoodie", "Winter Jacket", "Warm Pants", "Boots", "Beanie", "Gloves"];
+                break;
+            }
+            case 7: {
+                clothes = ["Thermal Base Layer", "Hoodie", "Heavy Parka", "Insulated Pants", "Winter Boots", "Beanie", "Gloves", "Scarf"];
+                break;
+            }
+        }
+    } 
+    else {
+        switch (cloScore) {
+            case 0: {
+                clothes = ["T-shirt", "Shorts", "Sneakers", "Umbrella"];
+                break;
+            }
+            case 1: {
+                clothes = ["T-shirt", "Pants", "Sneakers", "Umbrella"];
+                break;
+            }
+            case 2: {
+                clothes = ["Long Sleeve", "Rain Jacket", "Pants", "Sneakers"];
+                break;
+            }
+            case 3: {
+                clothes = ["T-shirt", "Hoodie", "Rain Jacket", "Pants", "Sneakers"];
+                break;
+            }
+            case 4: {
+                clothes = ["T-shirt", "Hoodie", "Rain Jacket", "Pants", "Waterproof Shoes"];
+                break;
+            }
+            case 5: {
+                clothes = ["T-shirt", "Hoodie", "Waterproof Insulated Jacket" , "Pants", "Boots", "Beanie"];
+                break;
+            }
+            case 6: {
+                clothes = ["Thermal Base Layer", "Hoodie", "Waterproof Winter Jacket", "Warm Pants", "Boots", "Beanie", "Gloves"];
+                break;
+            }
+            case 7: {
+                clothes = ["Thermal Base Layer", "Hoodie", "Waterproof Parka", "Insulated Pants", "Winter Boots", "Beanie", "Gloves", "Scarf"];
+                break;
+            }
+        }
     }
 
-    accessories.forEach(accessoryItem => {
-        addClothingImage(accessoryItem);
-    });
+    const img = document.createElement("img");
+    img.src = (isRaining) ? `/img/${cloScore}rain.png` : `/img/${cloScore}.png`;
+    img.alt = clothes.join(", ")
+    clothesCard.appendChild(img);
+    
 
-    const clothesArray = tops.push(bottom).concat(accessories);
-
-    const clothesArray = [...tops, bottom, ...accessories];
-
-    clothesArray.forEach(item => {
+    clothes.forEach(item => {
         const child = document.createElement("p");
-        child.classList.add("clothes");
-        child.textContent = item.replaceAll("_", " ");
+        child.textContent = item;
         clothesContainer.appendChild(child);
     });
-
-    
-
-    descCard.appendChild(document.createElement("hr"));
 }
 
 async function getCityFromGeolocation(lat, lon) {
@@ -277,10 +295,10 @@ function getGeolocation() {
 async function calculateClothing() {
     errorDisplay.textContent = "";
 
-    let metabolicRate = getMetabolicRate();
+    const metabolicRate = getMetabolicRate();
     if(!metabolicRate) return;
 
-    let tempSensitivity = getTempSensitivity(sliderValueDisplay.textContent);
+    const tempSensitivity = getTempSensitivity(sliderValueDisplay.textContent);
     const now = new Date();
     const isDay = now.getHours() >= 6 && now.getHours() <= 18;
 
@@ -295,24 +313,27 @@ async function calculateClothing() {
                 main: {temp, feels_like, humidity},
                 wind: {speed},
                 clouds: {all},
-                weather: [{description, id}]} = weatherData;
+                weather: {id, main, description}} = weatherData;
 
         const tempCelsius = temp - 273.15;
         const feels_likeCelsius = feels_like - 273.15;
-
-        let clo = Math.max(0, ((33 - feels_like) / 15) * metabolicRate + tempSensitivity);
-        const {tops, bottom, accessories} = generateOutfit(feels_likeCelsius, clo, id, all, isDay);
+        const isRaining = (main == "Thunderstorm" || main == "Drizzle" || main == "Rain") ? true : false;
+        
+        const bci = 1 + (20 - feels_likeCelsius) / 20; // base clothing insulation
+        const cloValue = bci + metabolicRate + tempSensitivity;
+        const cloScore = Math.round((cloValue - 0.75) / 0.35);
 
         inputCard.style.gridColumn = "1 / span 4";
         clothesCard.style.display = "flex";
         descCard.style.display = "flex";
 
-        displayClothes(tops, bottom, accessories);
+        displayClothes(cloScore, isRaining);
         displayWeatherInfo(city, tempCelsius, humidity, speed, description, id);
     }
     catch(error){
         console.error(error);
         displayError(error);
     }
+
     
 }

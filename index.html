@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clothing Calculator</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 </head>
 <body>
@@ -16,9 +16,9 @@
         <div class="inputCard box">
             <p>Activity Level</p>
             <div class="activityBtns">
-                <button id="walkBtn" onclick="setActivity('low')"><i class="fi fi-br-walking"></i></button>
-                <button id="jogBtn" onclick="setActivity('medium')"><i class="fi fi-br-running"></i></button>
-                <button id="runBtn" onclick="setActivity('high')"><i class="fi fi-br-user-fast-running"></i></button>
+                <button id="restBtn" onclick="setActivity('low')"><i class="fi fi-sr-person-simple"></i></button>
+                <button id="walkBtn" onclick="setActivity('medium')"><i class="fi fi-sr-walking"></i></button>
+                <button id="runBtn" onclick="setActivity('high')"><i class="fi fi-sr-running"></i></button>
             </div>
             <label for="tempSensitivity">Temperature Sensitivity</label>
             <span id="sliderValueDisplay">Average</span>
@@ -41,13 +41,15 @@
             <button onclick="calculateClothing()" class="calcBtn">Calculate</button>
         </div>
 
-        <div class="clothingCard box">
-            
-        </div>
+        <div class="clothesCard box"></div>
 
         <div class="descCard box">
-            <p class="recommendedClothesHeader">Recommended clothes</p>
+            <p>Recommended clothes</p>
             <div class="clothesContainer"></div>
+            <br>
+            <hr>
+            <br>
+            <div class="weatherInfo"></div>
         </div>
     </div>
 
