@@ -19,19 +19,20 @@ body{
 }
 header{
     flex-shrink: 0;
-    height: 100px;
     display: flex;
     justify-content: center;
-    align-items: end;
-}
-.gridContainer{
-    flex: 1;
-    display: grid;
     align-items: center;
-    grid-template-columns: repeat(12, 1fr);
-    max-width: 1065px;
-    margin: 0 auto;
-    column-gap: 15px;
+    height: 100px;
+}
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 15px;
+    flex: 1;
+    flex-wrap: wrap;
+    width: 100%;
 }
 .box{
     border: 2px solid hsla(224, 100%, 15%, 0.25);
@@ -59,13 +60,11 @@ button.active{
     background-color: hsla(207, 100%, 60%, 1);
 }
 .inputCard{
-    height: 400px;
-    grid-column: 5 / span 4;
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: grid-column 0.4s ease;
+    width: 250px;
+    height: 400px;
 }
 .inputCard p{
     font-size: 16px;
@@ -206,10 +205,10 @@ input[type="range"].custom-slider:focus::-moz-range-thumb {
 
 .clothesCard{
     display: none;
-    height: 500px;
-    grid-column: 5 / span 4;
     justify-content: center;
     align-items: center;
+    width: 300px;
+    height: 500px;
 }
 .clothesCard img{
     width: 100%;
@@ -219,8 +218,8 @@ input[type="range"].custom-slider:focus::-moz-range-thumb {
     display: none;
     flex-direction: column;
     align-items: center;
+    width: 250px;
     height: 400px;
-    grid-column: 9 / span 4;
 }
 .descCard p{
     font-size: 16px;

@@ -1,5 +1,3 @@
-const gridContainer = document.querySelector(".gridContainer");
-
 const inputCard = document.querySelector(".inputCard");
 const clothesCard = document.querySelector(".clothesCard");
 const descCard = document.querySelector(".descCard");
@@ -330,9 +328,8 @@ async function calculateClothing() {
         
         const bci = 1 + (20 - feels_likeCelsius) / 20; // base clothing insulation
         const cloValue = bci + metabolicRate + tempSensitivity;
-        const cloScore = Math.round((cloValue - 0.75) / 0.35);
+        const cloScore = Math.max(0, Math.min(7, Math.round((cloValue - 0.75) / 0.35)));
 
-        inputCard.style.gridColumn = "1 / span 4";
         clothesCard.style.display = "flex";
         descCard.style.display = "flex";
 
