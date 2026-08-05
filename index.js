@@ -11,6 +11,8 @@ const locationSelection = document.querySelector(".locationSelection");
 const cityInput = document.querySelector(".cityInput");
 const errorDisplay = document.querySelector(".errorDisplay");
 
+const outfit = document.getElementById("outfit");
+
 const clothesContainer = document.querySelector(".clothesContainer");
 const weatherInfo = document.querySelector(".weatherInfo");
 
@@ -147,7 +149,6 @@ function getTempSensitivity(tempSensitivityString) {
 
 function displayClothes(cloScore, isRaining) {
     
-    clothesCard.innerHTML = "";
     clothesContainer.innerHTML = "";
 
     let clothes;
@@ -231,12 +232,10 @@ function displayClothes(cloScore, isRaining) {
         }
     }
 
-    const img = document.createElement("img");
-    img.src = (isRaining) ? `/img/${cloScore}rain.png` : `/img/${cloScore}.png`;
-    img.alt = clothes.join(", ")
-    clothesCard.appendChild(img);
     
-
+    outfit.src = (isRaining) ? `/img/${cloScore}rain.png` : `/img/${cloScore}.png`;
+    outfit.alt = clothes.join(", ")
+    
     clothes.forEach(item => {
         const child = document.createElement("p");
         child.textContent = item;
