@@ -37,13 +37,15 @@ async function getWeatherData(city) {
     try{
         const response = await fetch(apiUrl);
         if(!response.ok){
-            throw new Error(`error: ${response.status}`);
+            console.error(response.status);
+            displayError("Could not fetch weather data");
         }
         const weatherData = await response.json();
         return weatherData;
     }
     catch(error){
-        displayError(error.message || error);
+        console.error(error);
+        displayError("Could not fetch weather data");
         return null;
     }
 }
@@ -249,14 +251,16 @@ async function getCityFromGeolocation(lat, lon) {
     try{
         const response = await fetch(apiUrl);
         if(!response.ok){
-            throw new Error(`error: ${response.status}`);
+            console.error(response.status);
+            displayError("Could not fetch weather data");
         }
         const weatherData = await response.json();
         const { name: city } = weatherData;
         return city;
     }
     catch(error){
-        displayError(error.message || error);
+        console.error(error);
+        displayError("Could not fetch weather data");
         return null;
     }
 }
@@ -272,8 +276,8 @@ async function success(pos) {
     }
 }
 
-function error(err) {
-    if (err?.code === 1) {
+function error() {
+    if (error.code === 1) {
         displayError("Please allow access to geolocation");
     }
     else {
@@ -337,7 +341,7 @@ async function calculateClothing() {
     }
     catch(error){
         console.error(error);
-        displayError(error.message || error);
+        displayError("Could not fetch weather data");
     }
 
     

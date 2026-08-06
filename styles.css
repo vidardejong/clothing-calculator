@@ -68,6 +68,7 @@ button.active{
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
     width: 250px;
     height: 400px;
 }
@@ -196,7 +197,7 @@ input[type="range"].custom-slider:focus::-moz-range-thumb {
 /*-----------------| Error Display |------------------*/
 
 .errorDisplay{
-    font-size: 0.75rem;
+    font-size: 12px;
     position: absolute;
     top: 350px;
 }
