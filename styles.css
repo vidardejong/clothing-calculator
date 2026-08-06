@@ -40,6 +40,7 @@ main{
     border-radius: 20px;
     padding: 40px 30px;
     box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
+    background-color: hsl(207, 100%, 80%);
 }
 h1{
     font-size: 30px;
