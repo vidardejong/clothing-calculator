@@ -1,13 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@100..900&family=Lexend:wght@100..900&family=Tiny5&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
-*{
+* {
     font-family: "Ubuntu", sans-serif;
     margin: 0;
     color: white;
 }
 
-body{
-    /* background-image: url(img/day.png); */
+body {
     background: linear-gradient(hsl(210, 100%, 60%), hsl(210, 100%, 90%));
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -18,14 +17,14 @@ body{
     display: flex;
     flex-direction: column;
 }
-header{
+header {
     flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100px;
 }
-main{
+main {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,18 +34,18 @@ main{
     flex-wrap: wrap;
     width: 100%;
 }
-.box{
+.box {
     border: 2px solid hsla(224, 100%, 15%, 0.25);
     border-radius: 20px;
     padding: 40px 30px;
     box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
     background-color: hsl(207, 100%, 80%);
 }
-h1{
+h1 {
     font-size: 30px;
     font-weight: bold;
 }
-button{
+button {
     border: none;
     background-color: hsla(207, 100%, 60%, 0.5);
     cursor: pointer;
@@ -54,17 +53,17 @@ button{
     text-align: center;
     color: white;
 }
-button:hover{
+button:hover {
     background-color: hsla(207, 100%, 60%, 1);
 }
-button.active{
+button.active {
     border: 1px solid hsla(224, 100%, 15%, 0.25);
     background-color: hsla(207, 100%, 60%, 1);
 }
 
 /*-----------------| Input Card |------------------*/
 
-.inputCard{
+.inputCard {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -72,23 +71,23 @@ button.active{
     width: 250px;
     height: 400px;
 }
-.inputCard p{
+.inputCard p {
     font-size: 16px;
     font-weight: bold;
 }
 
 /*-----------------| Activity Buttons |------------------*/
 
-.inputCard .activityBtns{
+.inputCard .activityBtns {
     margin-top: 10px; 
 }
-.inputCard .activityBtns button{
+.inputCard .activityBtns button {
     margin: 0 5px;
     height: 70px;
     width: 70px;
     border-radius: 10px;
 }
-.inputCard .activityBtns button i{
+.inputCard .activityBtns button i {
     position: relative;
     top: 4px;
     font-size: 40px;
@@ -97,12 +96,12 @@ button.active{
 
 /*-----------------| Temperature Sensitivity |------------------*/
 
-.inputCard label{
+.inputCard label {
     margin-top: 50px;
     color: white;
     font-weight: bold;
 }
-.inputCard span{
+.inputCard span {
     margin-top: 10px;
     font-size: 12px;
 }
@@ -163,13 +162,13 @@ input[type="range"].custom-slider:focus::-moz-range-thumb {
 
 /*-----------------| Location Selection |------------------*/
 
-.inputCard .locationSelection{
+.inputCard .locationSelection {
     margin-top: 50px;
     display: flex;
     align-items: center;
     gap: 5px;
 }
-.inputCard .locationSelection input{
+.inputCard .locationSelection input {
     margin: 0;
     width: 170px;
     border: 0.5px solid white;
@@ -178,16 +177,16 @@ input[type="range"].custom-slider:focus::-moz-range-thumb {
     color: white;
     background-color: hsla(207, 100%, 60%, 0.5);
 }
-.inputCard .locationSelection input::placeholder{
+.inputCard .locationSelection input::placeholder {
     color: hsla(0, 0%, 100%, 0.8);
 }
-.inputCard .locationSelection button{
+.inputCard .locationSelection button {
     border: 0.5px solid white;
     width: 36.5px;
     height: 36.5px;
     border-radius: 5px;
 }
-.inputCard .locationSelection button i{
+.inputCard .locationSelection button i {
     position: relative;
     top: 2px;
     font-size: 20px;
@@ -196,7 +195,7 @@ input[type="range"].custom-slider:focus::-moz-range-thumb {
 
 /*-----------------| Error Display |------------------*/
 
-.errorDisplay{
+.errorDisplay {
     font-size: 12px;
     position: absolute;
     top: 350px;
@@ -204,7 +203,7 @@ input[type="range"].custom-slider:focus::-moz-range-thumb {
 
 /*-----------------| Calculate Button |------------------*/
 
-.calcBtn{
+.calcBtn {
     margin-top: 50px;
     padding: 10px 20px;
     border-radius: 50px;
@@ -213,16 +212,16 @@ input[type="range"].custom-slider:focus::-moz-range-thumb {
     background-color: white;
     color: hsl(207, 100%, 60%);
 }
-.calcBtn:hover{
+.calcBtn:hover {
     background-color: hsl(0, 0%, 85%);
 }
-.calcBtn:active{
+.calcBtn:active {
     background-color: hsl(0, 0%, 70%);
 }
 
-/*-----------------| Clothes Card |------------------*/
+/*-----------------| Outfit Card |------------------*/
 
-.clothesCard{
+.outfitCard {
     display: none;
     flex-direction: column;
     align-items: center;
@@ -230,11 +229,11 @@ input[type="range"].custom-slider:focus::-moz-range-thumb {
     width: 300px;
     height: 500px;
 }
-.clothesCard h2{
+.outfitCard h2 {
     margin-top: 15px;
     font-size: 20px;
 }
-.clothesCard img{
+.outfitCard img {
     margin-top: 30px;
     width: 300px;
     height: 450px;
@@ -242,17 +241,17 @@ input[type="range"].custom-slider:focus::-moz-range-thumb {
 
 /*-----------------| Description Card |------------------*/
 
-.descCard{
+.descCard {
     display: none;
     flex-direction: column;
     align-items: center;
     width: 250px;
     height: 400px;
 }
-.descCard h2{
+.descCard h2 {
     font-size: 16px;
 }
-.clothesContainer{
+.clothesContainer {
     margin: 10px 0;
     display: flex;
     justify-content: center;
@@ -261,46 +260,46 @@ input[type="range"].custom-slider:focus::-moz-range-thumb {
     flex-wrap: wrap;
     gap: 5px;
 }
-.clothesContainer p{
+.clothesContainer p {
     color: white;
     padding: 8px 12px;
     border-radius: 50px;
     font-size: 14px;
     background-color: hsla(207, 100%, 60%, 0.5)
 }
-hr{
+hr {
     width: 100%;
 }
 
 /*-----------------| Weather Info |------------------*/
 
-.weatherInfo{
+.weatherInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.cityDisplay{
+.cityDisplay {
     font-size: 25px;
     font-weight: bold;
 }
-.tempDisplay{
+.tempDisplay {
     margin-top: 5px;
     font-size: 40px;
 }
-.windDisplay{
+.windDisplay {
     margin-top: 10px;
     font-size: 15px;
 }
-.humidityDisplay{
+.humidityDisplay {
     margin-top: 10px;
     font-size: 15px;
 }
-.weatherDescDisplay{
+.weatherDescDisplay {
     margin-top: 10px;
     font-size: 15px;
 }
-.weatherEmoji{
-    margin-top: 10px;
-    font-size: 50px;
+.weatherEmoji {
+    margin-top: 5px;
+    font-size: 40px;
 }
 

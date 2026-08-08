@@ -1,5 +1,4 @@
 const inputCard = document.querySelector(".inputCard");
-const clothesCard = document.querySelector(".clothesCard");
 const descCard = document.querySelector(".descCard");
 
 const restBtn = document.getElementById("restBtn");
@@ -11,6 +10,7 @@ const locationSelection = document.querySelector(".locationSelection");
 const cityInput = document.querySelector(".cityInput");
 const errorDisplay = document.querySelector(".errorDisplay");
 
+const outfitCard = document.querySelector(".outfitCard");
 const outfit = document.getElementById("outfit");
 
 const clothesContainer = document.querySelector(".clothesContainer");
@@ -38,14 +38,14 @@ async function getWeatherData(city) {
         const response = await fetch(apiUrl);
         if(!response.ok){
             console.error(response.status);
-            displayError("Could not fetch weather data");
+            displayError("Invalid Location");
         }
         const weatherData = await response.json();
         return weatherData;
     }
     catch(error){
         console.error(error);
-        displayError("Could not fetch weather data");
+        displayError("Invalid Location");
         return null;
     }
 }
@@ -233,7 +233,6 @@ function displayClothes(cloScore, isRaining) {
             }
         }
     }
-
     
     outfit.src = (isRaining) ? `/img/${cloScore}rain.png` : `/img/${cloScore}.png`;
     outfit.alt = clothes.join(", ")
@@ -252,7 +251,7 @@ async function getCityFromGeolocation(lat, lon) {
         const response = await fetch(apiUrl);
         if(!response.ok){
             console.error(response.status);
-            displayError("Could not fetch weather data");
+            displayError("Invalid Location");
         }
         const weatherData = await response.json();
         const { name: city } = weatherData;
@@ -260,7 +259,7 @@ async function getCityFromGeolocation(lat, lon) {
     }
     catch(error){
         console.error(error);
-        displayError("Could not fetch weather data");
+        displayError("Invalid Location");
         return null;
     }
 }
@@ -333,7 +332,7 @@ async function calculateClothing() {
         const cloValue = bci + metabolicRate + tempSensitivity;
         const cloScore = Math.max(0, Math.min(7, Math.round((cloValue - 0.75) / 0.35)));
 
-        clothesCard.style.display = "flex";
+        outfitCard.style.display = "flex";
         descCard.style.display = "flex";
 
         displayClothes(cloScore, isRaining);
@@ -341,7 +340,7 @@ async function calculateClothing() {
     }
     catch(error){
         console.error(error);
-        displayError("Could not fetch weather data");
+        displayError("Invalid Location");
     }
 
     
