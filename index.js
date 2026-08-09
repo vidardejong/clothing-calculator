@@ -11,7 +11,7 @@ const cityInput = document.querySelector(".cityInput");
 const errorDisplay = document.querySelector(".errorDisplay");
 
 const outfitCard = document.querySelector(".outfitCard");
-const outfit = document.getElementById("outfit");
+const outfitImg = document.getElementById("outfitImg");
 
 const clothesContainer = document.querySelector(".clothesContainer");
 const weatherInfo = document.querySelector(".weatherInfo");
@@ -149,95 +149,95 @@ function getTempSensitivity(tempSensitivityString) {
     }
 }
 
-function displayClothes(cloScore, isRaining) {
+function displayOutfit(cloScore, isRaining) {
     
     clothesContainer.innerHTML = "";
 
-    let clothes;
+    let outfit;
 
     if (!isRaining) {
         switch (cloScore) {
             case 0: {
-                clothes = ["T-shirt", "Shorts", "Sneakers"];
+                outfit = ["T-shirt", "Shorts", "Sneakers"];
                 break;
             }
             case 1: {
-                clothes = ["T-shirt", "Pants", "Sneakers"];
+                outfit = ["T-shirt", "Pants", "Sneakers"];
                 break;
             }
             case 2: {
-                clothes = ["Long Sleeve",  "Pants", "Sneakers"];
+                outfit = ["Long Sleeve",  "Pants", "Sneakers"];
                 break;
             }
             case 3: {
-                clothes = ["T-shirt", "Hoodie", "Pants", "Sneakers"];
+                outfit = ["T-shirt", "Hoodie", "Pants", "Sneakers"];
                 break;
             }
             case 4: {
-                clothes = ["T-shirt", "Hoodie", "Light Jacket", "Pants", "Sneakers"];
+                outfit = ["T-shirt", "Hoodie", "Light Jacket", "Pants", "Sneakers"];
                 break;
             }
             case 5: {
-                clothes = ["T-shirt", "Hoodie", "Insulated Jacket" , "Pants", "Boots", "Beanie"];
+                outfit = ["T-shirt", "Hoodie", "Insulated Jacket" , "Pants", "Boots", "Beanie"];
                 break;
             }
             case 6: {
-                clothes = ["Thermal Base Layer", "Hoodie", "Winter Jacket", "Warm Pants", "Boots", "Beanie", "Gloves"];
+                outfit = ["Thermal Base Layer", "Hoodie", "Winter Jacket", "Warm Pants", "Boots", "Beanie", "Gloves"];
                 break;
             }
             case 7: {
-                clothes = ["Thermal Base Layer", "Hoodie", "Heavy Parka", "Insulated Pants", "Winter Boots", "Beanie", "Gloves", "Scarf"];
+                outfit = ["Thermal Base Layer", "Hoodie", "Heavy Parka", "Insulated Pants", "Winter Boots", "Beanie", "Gloves", "Scarf"];
                 break;
             }
             default: {
-                clothes = ["T-shirt", "Pants", "Sneakers"];
+                outfit = ["T-shirt", "Pants", "Sneakers"];
             }
         }
     } 
     else {
         switch (cloScore) {
             case 0: {
-                clothes = ["T-shirt", "Shorts", "Sneakers", "Umbrella"];
+                outfit = ["T-shirt", "Shorts", "Sneakers", "Umbrella"];
                 break;
             }
             case 1: {
-                clothes = ["T-shirt", "Pants", "Sneakers", "Umbrella"];
+                outfit = ["T-shirt", "Pants", "Sneakers", "Umbrella"];
                 break;
             }
             case 2: {
-                clothes = ["Long Sleeve", "Rain Jacket", "Pants", "Sneakers"];
+                outfit = ["Long Sleeve", "Rain Jacket", "Pants", "Sneakers"];
                 break;
             }
             case 3: {
-                clothes = ["T-shirt", "Hoodie", "Rain Jacket", "Pants", "Sneakers"];
+                outfit = ["T-shirt", "Hoodie", "Rain Jacket", "Pants", "Sneakers"];
                 break;
             }
             case 4: {
-                clothes = ["T-shirt", "Hoodie", "Rain Jacket", "Pants", "Waterproof Shoes"];
+                outfit = ["T-shirt", "Hoodie", "Rain Jacket", "Pants", "Waterproof Shoes"];
                 break;
             }
             case 5: {
-                clothes = ["T-shirt", "Hoodie", "Waterproof Insulated Jacket" , "Pants", "Boots", "Beanie"];
+                outfit = ["T-shirt", "Hoodie", "Waterproof Insulated Jacket" , "Pants", "Boots", "Beanie"];
                 break;
             }
             case 6: {
-                clothes = ["Thermal Base Layer", "Hoodie", "Waterproof Winter Jacket", "Warm Pants", "Boots", "Beanie", "Gloves"];
+                outfit = ["Thermal Base Layer", "Hoodie", "Waterproof Winter Jacket", "Warm Pants", "Boots", "Beanie", "Gloves"];
                 break;
             }
             case 7: {
-                clothes = ["Thermal Base Layer", "Hoodie", "Waterproof Parka", "Insulated Pants", "Winter Boots", "Beanie", "Gloves", "Scarf"];
+                outfit = ["Thermal Base Layer", "Hoodie", "Waterproof Parka", "Insulated Pants", "Winter Boots", "Beanie", "Gloves", "Scarf"];
                 break;
             }
             default: {
-                clothes = ["T-shirt", "Pants", "Sneakers", "Umbrella"];
+                outfit = ["T-shirt", "Pants", "Sneakers", "Umbrella"];
             }
         }
     }
     
-    outfit.src = (isRaining) ? `/img/${cloScore}rain.png` : `/img/${cloScore}.png`;
-    outfit.alt = clothes.join(", ")
+    outfitImg.src = (isRaining) ? `/img/${cloScore}rain.png` : `/img/${cloScore}.png`;
+    outfitImg.alt = outfit.join(", ")
     
-    clothes.forEach(item => {
+    outfit.forEach(item => {
         const child = document.createElement("p");
         child.textContent = item;
         clothesContainer.appendChild(child);
@@ -335,7 +335,7 @@ async function calculateClothing() {
         outfitCard.style.display = "flex";
         descCard.style.display = "flex";
 
-        displayClothes(cloScore, isRaining);
+        displayOutfit(cloScore, isRaining);
         displayWeatherInfo(city, tempCelsius, humidity, speed, description, id);
     }
     catch(error){

@@ -34,7 +34,7 @@ main {
     flex-wrap: wrap;
     width: 100%;
 }
-.box {
+.card {
     border: 2px solid hsla(224, 100%, 15%, 0.25);
     border-radius: 20px;
     padding: 40px 30px;
