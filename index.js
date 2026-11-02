@@ -16,8 +16,6 @@ const outfitImg = document.getElementById("outfitImg");
 const clothesContainer = document.querySelector(".clothesContainer");
 const weatherInfo = document.querySelector(".weatherInfo");
 
-const apiKey = "06167aac9d119ffa7c6c3c0181130655";
-
 function setActivity(level) {
     [restBtn, walkBtn, runBtn].forEach(btn => btn.classList.remove("active"));
 

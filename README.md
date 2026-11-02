@@ -59,7 +59,7 @@ python3 -m http.server 8000
 
 ### API-nyckel
 
-Appen behöver en egen API-nyckel från [OpenWeatherMap](https://openweathermap.org/api). Lägg in den i konstanten `apiKey` högst upp i `index.js`.
+Appen behöver en egen API-nyckel från [OpenWeatherMap](https://openweathermap.org/api). Kopiera `config.example.js` till `config.js` och lägg in nyckeln där. `config.js` är gitignorerad och pushas inte. Observera att en nyckel i frontend-kod alltid är synlig i webbläsaren om sidan publiceras.
 
 ## Projektstruktur
 
@@ -67,6 +67,7 @@ Appen behöver en egen API-nyckel från [OpenWeatherMap](https://openweathermap.
 .
 ├── index.html   # sidans struktur
 ├── styles.css   # utseende
+├── config.example.js # mall för config.js (din API-nyckel)
 ├── index.js     # logik: väderhämtning, beräkning, rendering
 ├── img/         # outfit-bilder (0–7, samt regnvarianter)
 └── src/         # bakgrundsmaterial (forskningsartikel)
